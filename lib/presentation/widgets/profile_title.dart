@@ -3,41 +3,84 @@ import 'package:flutter/material.dart';
 
 class ProfileTile extends StatelessWidget
 {
-  const ProfileTile
+  String title;
+  String subtitle;
+  String trailing;
+
+  ProfileTile
   (
     {
       Key? key,
+      required this.title,
+      required this.subtitle,
+      required this.trailing,
     }
   ): super(key: key);
-
 
   @override
   Widget build(BuildContext context)
   {
+    Config config = Config();
+
     return Container
     (
-      padding: EdgeInsets.only(bottom: Config().profileTilePadding),
+      padding: EdgeInsets.only(bottom: config.profileTilePadding),
       child: Column
       (
         children: 
         [
           // list tile
-          Container
-          (
-            padding: EdgeInsets.only(bottom: Config().profileTilePadding),
-            child: const Placeholder
-            (
-              fallbackHeight: 30,
-            ),
-          ),
+          listTile(config),
 
           // divider
-          const Placeholder
-          (
-            fallbackHeight: 5,
-          )
+          divider(config),
         ],
       )
+    );
+  }
+
+  Widget listTile(Config config)
+  {
+    return ListTile
+    (
+      title: Text
+      (
+        title,
+        style: TextStyle
+        (
+          fontSize: config.profileTileTitleFontSize,
+          fontWeight: config.profileTileFontWeight,
+          color: config.profileTileColor,
+        ),
+      ),
+
+      subtitle: Text
+      (
+        subtitle,
+        style: TextStyle
+        (
+          fontSize: config.profileTileSubtitleFontSize,
+          fontWeight: config.profileTileFontWeight,
+          color: config.profileTileSubtileFontColor,
+        ),
+      ),
+
+      trailing: Icon
+      (
+        config.profileTitleIcon,
+        size: config.profileTileIconSize,
+        color: config.profileTileColor,
+      ),
+    );
+  }
+
+  Widget divider(Config config)
+  {
+    return Divider
+    (
+      height: config.profileDividerSize,
+      indent: config.profileDividerIndent,
+      endIndent: config.profileDividerEndIndent,
     );
   }
 }

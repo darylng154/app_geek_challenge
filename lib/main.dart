@@ -13,12 +13,19 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: Config().appTitle,
+      title: "Home Screen",
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Config().themeColor),
         useMaterial3: true,
       ),
-      home: const ProfileScreen(),
+      home: ProfileScreen
+      (
+        firstName: "Micah", 
+        lastName: "Doe",
+        phone: "invalid",
+        email: "n/a",
+        about: "blank"
+      ),
     );
   }
 }
