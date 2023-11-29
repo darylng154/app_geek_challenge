@@ -1,6 +1,5 @@
-import 'package:coding_challenge/config.dart';
-// import 'package:coding_challenge/presentation/screens/profile_screen.dart';
-import 'package:coding_challenge/presentation/widgets/profile_title.dart';
+import 'package:coding_challenge/features/profile/Config.dart';
+import 'package:coding_challenge/features/profile/presentation/widgets/profile_title.dart';
 import 'package:flutter/material.dart';
 
 class ProfileScreen extends StatelessWidget
@@ -9,7 +8,7 @@ class ProfileScreen extends StatelessWidget
   String lastName;
   String phone;
   String email;
-  String about;
+  String bio;
 
   ProfileScreen
   (
@@ -19,56 +18,54 @@ class ProfileScreen extends StatelessWidget
       required this.lastName,
       required this.phone,
       required this.email,
-      required this.about,
+      required this.bio,
     }
   ): super(key: key);
 
   @override
   Widget build(BuildContext context)
   {
-    Config config = Config();
-
     return Scaffold
     (
       appBar: AppBar(),
-      body: Center
+      body: SafeArea
       (
         child: ListView
         (
-          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * config.listViewPaddingPerc),
+          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * Config.listViewPaddingPerc),
           children: <Widget>
           [
-            // Profile Screen Top Padding box
-            SizedBox
-            (
-              height: config.profilePadding,
-            ),
+            // // Profile Screen Top Padding box
+            // SizedBox
+            // (
+            //   height: Config.profilePadding,
+            // ),
 
             // Profile Name Widget
-            profileName(config),
+            _profileName(),
 
             // Profile Name Bottom Padding box
-            SizedBox
+            const SizedBox
             (
-              height: config.profilePadding,
+              height: Config.profilePadding,
             ),
 
             // Profile Pic Widget
-            profilePic(config),
+            _profilePic(),
 
             // Profile Pic Bottom Padding box
-            SizedBox
+            const SizedBox
             (
-              height: config.profilePadding,
+              height: Config.profilePadding,
             ),
 
             // Profile Column Tiles Widget
-            profileColTiles(config),
+            _profileColTiles(),
 
             // Profile Screen Bottom Padding box
-            SizedBox
+            const SizedBox
             (
-              height: config.profilePadding,
+              height: Config.profilePadding,
             ),
           ]
         ),
@@ -76,22 +73,22 @@ class ProfileScreen extends StatelessWidget
     );
   }
 
-  Widget profileName(Config config)
+  Widget _profileName()
   {
-    return Text
+    return const Text
     (
       "Edit Profile",
       textAlign: TextAlign.center,
       style: TextStyle
       (
-        fontSize: config.profileNameSize,
+        fontSize: Config.profileNameSize,
         fontWeight: FontWeight.bold,
-        color: config.themeColor
+        color: Config.themeColor
       ),
     );
   }
 
-  Widget profilePic(Config config)
+  Widget _profilePic()
   {
     return Container
     (
@@ -104,13 +101,13 @@ class ProfileScreen extends StatelessWidget
         border: Border.all
         (
           width: 5,
-          color: config.themeColor,
+          color: Config.themeColor,
         ),
       ),
     );
   }
 
-  Widget profileColTiles(Config config)
+  Widget _profileColTiles()
   {
     return Column
     (
@@ -121,7 +118,6 @@ class ProfileScreen extends StatelessWidget
         (
           title: "Name",
           subtitle: "$firstName $lastName",
-          trailing: "",
         ),
         
         // phone
@@ -129,7 +125,6 @@ class ProfileScreen extends StatelessWidget
         (
           title: "Phone",
           subtitle: phone,
-          trailing: "",
         ),
         
         // email
@@ -137,15 +132,13 @@ class ProfileScreen extends StatelessWidget
         (
           title: "Email",
           subtitle: email,
-          trailing: "",
         ),
         
         // tell us about yourself
         ProfileTile
         (
           title: "Tell us about yourself",
-          subtitle: about,
-          trailing: "",
+          subtitle: bio,
         ), 
       ],
     );
