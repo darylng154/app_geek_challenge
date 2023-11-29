@@ -1,10 +1,13 @@
 import 'package:coding_challenge/features/profile/Config.dart';
+import 'package:coding_challenge/features/profile/presentation/screens/profile_edit_screen.dart';
 import 'package:flutter/material.dart';
 
 class ProfileTile extends StatelessWidget
 {
   String title;
   String subtitle;
+  String prompt;
+  String label;
 
   ProfileTile
   (
@@ -12,6 +15,8 @@ class ProfileTile extends StatelessWidget
       Key? key,
       required this.title,
       required this.subtitle,
+      required this.prompt,
+      required this.label,
     }
   ): super(key: key);
 
@@ -26,7 +31,7 @@ class ProfileTile extends StatelessWidget
         children: 
         [
           // list tile
-          _listTile(),
+          _listTile(context),
 
           // divider
           _divider(),
@@ -35,11 +40,11 @@ class ProfileTile extends StatelessWidget
     );
   }
 
-  Widget _listTile()
+  Widget _listTile(BuildContext context)
   {
     return ListTile
     (
-      // onTap: ,
+      onTap: () =>_editNav(context),
       title: Text
       (
         title,
@@ -81,14 +86,14 @@ class ProfileTile extends StatelessWidget
     );
   }
 
-  // Future<dynamic> navigation()
-  // {
-  //   return Navigator.of(context).push
-  //   (
-  //     MaterialPageRoute
-  //     (
-  //       builder: (context) => 
-  //     ),
-  //   );
-  // }
+  Future<dynamic> _editNav(BuildContext context)
+  {
+    return Navigator.of(context).push
+    (
+      MaterialPageRoute
+      (
+        builder: (context) => ProfileEditScreen(prompt: prompt, label: label),
+      ),
+    );
+  }
 }

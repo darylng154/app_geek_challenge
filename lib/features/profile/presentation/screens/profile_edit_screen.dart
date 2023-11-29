@@ -98,7 +98,7 @@ class ProfileEditScreen extends StatelessWidget
             foregroundColor: Config.updateButtonTextColor,
             shape: const BeveledRectangleBorder(),
           ),
-          onPressed: () {},
+          onPressed: () =>_updateNav(context),
           child: const Padding
           (
             padding: EdgeInsets.all(Config.updateButtonTextPadding),
@@ -111,6 +111,11 @@ class ProfileEditScreen extends StatelessWidget
         ),
       ),
     );
+  }
+
+  void _updateNav(BuildContext context)
+  {
+    return Navigator.of(context).pop();
   }
 
   void disposed()

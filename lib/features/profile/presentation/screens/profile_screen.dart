@@ -35,12 +35,6 @@ class ProfileScreen extends StatelessWidget
           padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * Config.listViewPaddingPerc),
           children: <Widget>
           [
-            // // Profile Screen Top Padding box
-            // SizedBox
-            // (
-            //   height: Config.profilePadding,
-            // ),
-
             // Profile Name Widget
             _profileName(),
 
@@ -118,6 +112,8 @@ class ProfileScreen extends StatelessWidget
         (
           title: "Name",
           subtitle: "$firstName $lastName",
+          prompt: "What's your name?",
+          label: "First Name",
         ),
         
         // phone
@@ -125,6 +121,8 @@ class ProfileScreen extends StatelessWidget
         (
           title: "Phone",
           subtitle: phone,
+          prompt: "What's your phone number?",
+          label: "Your phone number",
         ),
         
         // email
@@ -132,6 +130,8 @@ class ProfileScreen extends StatelessWidget
         (
           title: "Email",
           subtitle: email,
+          prompt: "What's your email?",
+          label: "Your email address",
         ),
         
         // tell us about yourself
@@ -139,6 +139,8 @@ class ProfileScreen extends StatelessWidget
         (
           title: "Tell us about yourself",
           subtitle: bio,
+          prompt: "What type of passenger are you?",
+          label: "Write a little bit about yourself. Do you like chatting? Are you a smoker? Do you bring pets with you? Etc.",
         ), 
       ],
     );
