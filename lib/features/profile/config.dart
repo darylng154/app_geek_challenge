@@ -13,19 +13,28 @@ class Config
   static const double listViewPaddingPerc = 0.07;
 
   // Profile Name & Pic
-  static const double profilePadding = 20;
-  static const double profileNameSize = 26;
+  static const double profilePadding = 9;
+  static const double profilePicPaddingBot = 0; 
+  static const double profileNameSize = 24;
+  static const double profilePicBoxSize = 120;
+  static const double profilePicRadius = 55;
+  static const double profilePicBckgndRadius = 60;
+  static const double profilePicEditRadius = 15;
+  static const double profilePicEditSize = 18;
+  static const Color profilePicEditBckgndColor = Colors.white;
+  static const double profilePicEditPosRight = 115;
+  static const double profilePicEditPosTop = 10;
 
   // -------------------------------------------------------------------------
   // Profile Tile Settings
   // Bottom Padding between each Tile (after Divider)
   static const double profileTilePadding = 0;
-  static const double profileTileTitleFontSize = 12;
+  static const double profileTileTitleFontSize = 11;
   static const FontWeight profileTileFontWeight = FontWeight.bold;
   // Actual Color from prototype (Hard to see with white background)
   // static const Color profileTileColor = Color.fromARGB(255, 238, 238, 238);
   static final Color profileTileColor = Colors.grey.shade500;
-  static const double profileTileSubtitleFontSize = 14;
+  static const double profileTileSubtitleFontSize = 12;
   static const Color profileTileSubtileFontColor = Colors.black;
   static const IconData profileTitleIcon = Icons.navigate_next_rounded;
   static const double profileTileIconSize = 35;
@@ -46,6 +55,8 @@ class Config
   static const double textFieldLabelPadding = 5;
   static const double textFieldLabelFontSize = 14;
   static final Color textFieldLabelFontColor  = Colors.grey.shade500;
+  static const double textFieldTextSize  = 14;
+  static const Color textFieldTextFontColor  = Colors.black;
 
   // Update Button Settings
   static const Color updateButtonColor = Colors.black;

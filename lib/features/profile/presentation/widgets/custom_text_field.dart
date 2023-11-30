@@ -45,6 +45,9 @@ class CustomTextFieldState extends State<CustomTextField>
           maxLines: null,
           decoration: InputDecoration
           (
+            // Used hintText & hintStyle instead of labelText & labelStyle because
+            // labelText cuts off long sentences while hintText doesn't
+            // Also causes label to not show when there is something in the Text Field
             hintText: widget.label,
             hintStyle: TextStyle
             (
@@ -68,6 +71,12 @@ class CustomTextFieldState extends State<CustomTextField>
               ),
               borderRadius: const BorderRadius.all(Radius.zero)
             )
+          ),
+          style: const TextStyle
+          (
+            fontSize: Config.textFieldTextSize,
+            fontWeight: FontWeight.bold,
+            color: Config.textFieldTextFontColor,
           ),
         ),
     );

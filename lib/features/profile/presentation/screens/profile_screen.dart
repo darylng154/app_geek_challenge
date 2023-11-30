@@ -58,7 +58,7 @@ class ProfileScreen extends StatelessWidget
                 // Profile Pic Bottom Padding box
                 const SizedBox
                 (
-                  height: Config.profilePadding,
+                  height: Config.profilePicPaddingBot,
                 ),
 
                 // Profile Column Tiles Widget
@@ -96,17 +96,43 @@ class ProfileScreen extends StatelessWidget
   {
     return Container
     (
-      width: 100,
-      height: 100,
+      width: Config.profilePicBoxSize,
+      height: Config.profilePicBoxSize,
       alignment: Alignment.center,
-      decoration: BoxDecoration
+      child: const Stack
       (
-        shape: BoxShape.circle,
-        border: Border.all
-        (
-          width: 5,
-          color: Config.themeColor,
-        ),
+        fit: StackFit.expand,
+        children: 
+        [
+          CircleAvatar
+          (
+            radius: Config.profilePicBckgndRadius,
+            backgroundColor: Config.themeColor,
+            child: CircleAvatar
+            (
+              radius: Config.profilePicRadius,
+              backgroundImage: AssetImage('assets/profile_pic.jpg'),
+              backgroundColor: Colors.white,
+            ),
+          ),
+
+          Positioned
+          (
+            right: Config.profilePicEditPosRight,
+            top: Config.profilePicEditPosTop,
+            child: CircleAvatar
+            (
+              radius: Config.profilePicEditRadius,
+              backgroundColor: Config.profilePicEditBckgndColor,
+              child: Icon
+              (
+                Icons.create_rounded,
+                size: Config.profilePicEditSize,
+                color: Config.themeColor,
+              ),
+            ),
+          )
+        ],
       ),
     );
   }
