@@ -37,6 +37,7 @@ class ProfileScreen extends StatelessWidget
           appBar: AppBar(),
           body: SafeArea
           (
+            // ListView to add scrolling feature in case we add more fields
             child: ListView
             (
               padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * Config.listViewPaddingPerc),
@@ -120,7 +121,6 @@ class ProfileScreen extends StatelessWidget
         ProfileTile
         (
           title: "Name",
-          // subtitle: "$firstName $lastName",
           subtitle: "${user.firstName ?? ""} ${user.lastName ?? ""}",
           prompt: "What's your name?",
           label: "First Name",
@@ -130,7 +130,6 @@ class ProfileScreen extends StatelessWidget
         ProfileTile
         (
           title: "Phone",
-          // subtitle: phone,
           subtitle: user.phone ?? "",
           prompt: "What's your phone number?",
           label: "Your phone number",
@@ -140,7 +139,6 @@ class ProfileScreen extends StatelessWidget
         ProfileTile
         (
           title: "Email",
-          // subtitle: email,
           subtitle: user.email ?? "",
           prompt: "What's your email?",
           label: "Your email address",
@@ -150,7 +148,6 @@ class ProfileScreen extends StatelessWidget
         ProfileTile
         (
           title: "Tell us about yourself",
-          // subtitle: bio,
           subtitle: user.bio ?? "",
           prompt: "What type of passenger are you?",
           label: "Write a little bit about yourself. Do you like chatting? Are you a smoker? Do you bring pets with you? Etc.",

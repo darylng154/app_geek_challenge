@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 // File that configurates settings on widgets of the Profile Screen
+// for easy UI editing and hot reloading
 class Config
 {
   // Material App Settings

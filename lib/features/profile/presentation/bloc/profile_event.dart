@@ -1,21 +1,12 @@
 part of 'profile_bloc.dart';
 
+// Different Events to update Bloc fields independently
 abstract class ProfileEvent extends Equatable
 {
   const ProfileEvent();
 
   @override
   List<Object> get props => [];
-}
-
-class LoadUser extends ProfileEvent
-{
-  User user;
-
-  LoadUser(this.user);
-
-  @override
-  List<Object> get props => [user];
 }
 
 class UpdateName extends ProfileEvent

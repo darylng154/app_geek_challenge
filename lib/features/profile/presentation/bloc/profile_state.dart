@@ -14,6 +14,7 @@ class ProfileState extends User
   @override
   List<Object?> get props => [user];
 
+  // overrides User.copyWith() for when we have a multiple / list of users instead of 1
   @override
   ProfileState copyWith({String? firstName, String? lastName, String? phone, String? email, String? bio})
   {

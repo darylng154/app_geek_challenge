@@ -6,6 +6,8 @@ import 'package:coding_challenge/features/profile/Config.dart';
 import 'package:coding_challenge/features/profile/presentation/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
+// Stateful Widget to take advantage of initState to initalize because the CustomTextField's
+// input glitches if we initialize inside build() => has to be doubled click to work
 class ProfileEditScreen extends StatefulWidget
 {
   final String title;
@@ -36,9 +38,13 @@ class ProfileEditScreenState extends State<ProfileEditScreen>
   void initState() 
   {
     super.initState();
-
+    
+    // Provides User data through the Bloc so controllers can initialize it's text
+    // if there is any
     final ProfileBloc profileBloc = BlocProvider.of(context);
 
+    // Initializes controller(s), controller, and controller text(s) based on
+    // which user property is being edited so widget can be reused
     switch (widget.title) 
     {
       case "Name":
@@ -51,6 +57,8 @@ class ProfileEditScreenState extends State<ProfileEditScreen>
           _controller.text = profileBloc.state.user.firstName;
         }
 
+        // First and Last name use different controllers because of the
+        // different Text Fields
         if(profileBloc.state.user.lastName != null) 
         {
           _controller2.text = profileBloc.state.user.lastName;
@@ -73,6 +81,7 @@ class ProfileEditScreenState extends State<ProfileEditScreen>
         _controller = TextEditingController();
         _textFields = _singleField(_controller);
 
+        // Checks if user is editing Email or Bio because it defaults to either one
         if(widget.title == "Email" && profileBloc.state.user.email != null) 
         {
           _controller.text = profileBloc.state.user.email;
@@ -103,16 +112,20 @@ class ProfileEditScreenState extends State<ProfileEditScreen>
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>
             [
+              // Top Text Question
               _prompt(),
 
+              // Padding Between Prompt and CustomTextField(s)
               const SizedBox
               (
                 height: Config.profileEditPadding,
               ),
 
-              // _singleField(_controller),
+              // Used to populate Widget tree with either a single CustomTextField or 2 because
+              // User's name has first and last name while others only needs 1
               _textFields,
 
+              // Update Button to save Text(s)
               _updateButton(context),
             ]
           ),
@@ -176,7 +189,8 @@ class ProfileEditScreenState extends State<ProfileEditScreen>
     (
       builder: (context, state)
       {
-    
+        // Expands Button Horizontally because it only takes up as much space as it's 
+        // text/label needs 
         return Expanded
         (
           child: Baseline
@@ -211,6 +225,8 @@ class ProfileEditScreenState extends State<ProfileEditScreen>
 
   void _updateNav(BuildContext context, User user)
   {
+    // Checks which field is being edited for resuability because ElevatedButton's onPressed 
+    // only takes a single function
     switch (widget.title) 
     {
       case "Name":
