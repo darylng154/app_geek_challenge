@@ -92,7 +92,7 @@ class ProfileTile extends StatelessWidget
     (
       MaterialPageRoute
       (
-        builder: (context) => ProfileEditScreen(prompt: prompt, label: label),
+        builder: (context) => ProfileEditScreen(title: title, prompt: prompt, label: label),
       ),
     );
   }

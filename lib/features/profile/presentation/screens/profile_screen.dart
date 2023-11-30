@@ -1,6 +1,9 @@
+import 'package:coding_challenge/features/profile/data/models/user.dart';
 import 'package:coding_challenge/features/profile/Config.dart';
+import 'package:coding_challenge/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:coding_challenge/features/profile/presentation/widgets/profile_title.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class ProfileScreen extends StatelessWidget
 {
@@ -22,52 +25,103 @@ class ProfileScreen extends StatelessWidget
     }
   ): super(key: key);
 
+  // @override
+  // Widget build(BuildContext context)
+  // {
+  //   return Scaffold
+  //   (
+  //     appBar: AppBar(),
+  //     body: SafeArea
+  //     (
+  //       child: ListView
+  //       (
+  //         padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * Config.listViewPaddingPerc),
+  //         children: <Widget>
+  //         [
+  //           // Profile Name Widget
+  //           _profileName(),
+
+  //           // Profile Name Bottom Padding box
+  //           const SizedBox
+  //           (
+  //             height: Config.profilePadding,
+  //           ),
+
+  //           // Profile Pic Widget
+  //           _profilePic(),
+
+  //           // Profile Pic Bottom Padding box
+  //           const SizedBox
+  //           (
+  //             height: Config.profilePadding,
+  //           ),
+
+  //           // Profile Column Tiles Widget
+  //           _profileColTiles(),
+
+  //           // Profile Screen Bottom Padding box
+  //           const SizedBox
+  //           (
+  //             height: Config.profilePadding,
+  //           ),
+  //         ]
+  //       ),
+  //     ),
+  //   );
+  // }
+
   @override
   Widget build(BuildContext context)
   {
-    return Scaffold
+    return BlocBuilder<ProfileBloc, ProfileState>
     (
-      appBar: AppBar(),
-      body: SafeArea
-      (
-        child: ListView
+      builder: (context, state)
+      {
+        return Scaffold
         (
-          padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * Config.listViewPaddingPerc),
-          children: <Widget>
-          [
-            // Profile Name Widget
-            _profileName(),
-
-            // Profile Name Bottom Padding box
-            const SizedBox
+          appBar: AppBar(),
+          body: SafeArea
+          (
+            child: ListView
             (
-              height: Config.profilePadding,
+              padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * Config.listViewPaddingPerc),
+              children: <Widget>
+              [
+                // Profile Name Widget
+                _profileHeader(),
+
+                // Profile Name Bottom Padding box
+                const SizedBox
+                (
+                  height: Config.profilePadding,
+                ),
+
+                // Profile Pic Widget
+                _profilePic(),
+
+                // Profile Pic Bottom Padding box
+                const SizedBox
+                (
+                  height: Config.profilePadding,
+                ),
+
+                // Profile Column Tiles Widget
+                _profileColTiles(state.user),
+
+                // Profile Screen Bottom Padding box
+                const SizedBox
+                (
+                  height: Config.profilePadding,
+                ),
+              ]
             ),
-
-            // Profile Pic Widget
-            _profilePic(),
-
-            // Profile Pic Bottom Padding box
-            const SizedBox
-            (
-              height: Config.profilePadding,
-            ),
-
-            // Profile Column Tiles Widget
-            _profileColTiles(),
-
-            // Profile Screen Bottom Padding box
-            const SizedBox
-            (
-              height: Config.profilePadding,
-            ),
-          ]
-        ),
-      ),
+          ),
+        );
+      }
     );
   }
 
-  Widget _profileName()
+  Widget _profileHeader()
   {
     return const Text
     (
@@ -101,7 +155,7 @@ class ProfileScreen extends StatelessWidget
     );
   }
 
-  Widget _profileColTiles()
+  Widget _profileColTiles(User user)
   {
     return Column
     (
@@ -111,7 +165,8 @@ class ProfileScreen extends StatelessWidget
         ProfileTile
         (
           title: "Name",
-          subtitle: "$firstName $lastName",
+          // subtitle: "$firstName $lastName",
+          subtitle: "${user.firstName ?? ""} ${user.lastName ?? ""}",
           prompt: "What's your name?",
           label: "First Name",
         ),
@@ -120,7 +175,8 @@ class ProfileScreen extends StatelessWidget
         ProfileTile
         (
           title: "Phone",
-          subtitle: phone,
+          // subtitle: phone,
+          subtitle: user.phone ?? "",
           prompt: "What's your phone number?",
           label: "Your phone number",
         ),
@@ -129,7 +185,8 @@ class ProfileScreen extends StatelessWidget
         ProfileTile
         (
           title: "Email",
-          subtitle: email,
+          // subtitle: email,
+          subtitle: user.email ?? "",
           prompt: "What's your email?",
           label: "Your email address",
         ),
@@ -138,7 +195,8 @@ class ProfileScreen extends StatelessWidget
         ProfileTile
         (
           title: "Tell us about yourself",
-          subtitle: bio,
+          // subtitle: bio,
+          subtitle: user.bio ?? "",
           prompt: "What type of passenger are you?",
           label: "Write a little bit about yourself. Do you like chatting? Are you a smoker? Do you bring pets with you? Etc.",
         ), 

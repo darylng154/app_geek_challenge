@@ -1,13 +1,14 @@
+import 'package:coding_challenge/features/profile/data/models/user.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:coding_challenge/features/profile/presentation/bloc/profile_bloc.dart';
 import 'package:extended_masked_text/extended_masked_text.dart';
 import 'package:coding_challenge/features/profile/Config.dart';
 import 'package:coding_challenge/features/profile/presentation/widgets/custom_text_field.dart';
 import 'package:flutter/material.dart';
 
-class ProfileEditScreen extends StatelessWidget
+class ProfileEditScreen extends StatefulWidget
 {
-  final _controller = TextEditingController();
-  // final _controller = MaskedTextController(mask: "(000)000-0000");
-
+  final String title;
   final String prompt;
   final String label;
 
@@ -15,10 +16,76 @@ class ProfileEditScreen extends StatelessWidget
   (
     {
       Key? key,
+      required this.title,
       required this.prompt,
       required this.label,
     }
   ): super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => ProfileEditScreenState();
+}
+
+class ProfileEditScreenState extends State<ProfileEditScreen>
+{
+  late dynamic _controller;
+  late dynamic _controller2;
+  late Widget _textFields;
+
+  @override
+  void initState() 
+  {
+    super.initState();
+
+    final ProfileBloc profileBloc = BlocProvider.of(context);
+
+    switch (widget.title) 
+    {
+      case "Name":
+        _controller = TextEditingController();
+        _controller2 = TextEditingController();
+        _textFields = _nameFields(_controller, _controller2);
+
+        if(profileBloc.state.user.firstName != null) 
+        {
+          _controller.text = profileBloc.state.user.firstName;
+        }
+
+        if(profileBloc.state.user.lastName != null) 
+        {
+          _controller2.text = profileBloc.state.user.lastName;
+        }
+
+        break;
+
+      case "Phone":
+        _controller = MaskedTextController(mask: "(000)000-0000");
+        _textFields = _singleField(_controller);
+
+        if(profileBloc.state.user.phone != null) 
+        {
+          _controller.text = profileBloc.state.user.phone;
+        }
+
+        break;
+
+      default:
+        _controller = TextEditingController();
+        _textFields = _singleField(_controller);
+
+        if(widget.title == "Email" && profileBloc.state.user.email != null) 
+        {
+          _controller.text = profileBloc.state.user.email;
+        }
+
+        if(widget.title == "Tell us about yourself" && profileBloc.state.user.bio != null) 
+        {
+          _controller.text = profileBloc.state.user.bio;
+        }
+
+        break;
+    }
+  }
 
   @override
   Widget build(BuildContext context)
@@ -43,7 +110,8 @@ class ProfileEditScreen extends StatelessWidget
                 height: Config.profileEditPadding,
               ),
 
-              _otherFields(_controller),
+              // _singleField(_controller),
+              _textFields,
 
               _updateButton(context),
             ]
@@ -57,7 +125,7 @@ class ProfileEditScreen extends StatelessWidget
   {
     return Text
     (
-      prompt,
+      widget.prompt,
       style: const TextStyle
       (
         fontSize: Config.profileEditPromptFontSize,
@@ -67,60 +135,109 @@ class ProfileEditScreen extends StatelessWidget
     );
   }
 
-  Widget _nameFields()
+  Widget _nameFields(TextEditingController controller, TextEditingController controller2)
   {
-    return const Placeholder(); 
+    return Row
+    (
+      children: 
+      [
+        CustomTextField
+        (
+          label: widget.label, 
+          controller: controller,
+        ),
+
+        const Padding
+        (
+          padding: EdgeInsets.symmetric(horizontal: Config.profileEditTextFieldPadding)
+        ),
+
+        CustomTextField
+        (
+          label: widget.label, 
+          controller: controller2,
+        ),
+      ],
+    );
   }
 
-  Widget _otherFields(TextEditingController controller)
+  Widget _singleField(TextEditingController controller)
   {
     return CustomTextField
     (
-      label: label, 
+      label: widget.label, 
       controller: controller,
     );
   }
 
   Widget _updateButton(BuildContext context)
   {
-    return Expanded
+    return BlocBuilder<ProfileBloc, ProfileState>
     (
-      child: Baseline
-      (
-        baseline: Config.updateButtonBaseline,
-        baselineType: TextBaseline.alphabetic,
-        child: ElevatedButton
+      builder: (context, state)
+      {
+    
+        return Expanded
         (
-          style: ElevatedButton.styleFrom
+          child: Baseline
           (
-            minimumSize: Size(MediaQuery.of(context).size.width, Config.updateButtonHeight),
-            backgroundColor: Config.updateButtonColor,
-            foregroundColor: Config.updateButtonTextColor,
-            shape: const BeveledRectangleBorder(),
-          ),
-          onPressed: () =>_updateNav(context),
-          child: const Padding
-          (
-            padding: EdgeInsets.all(Config.updateButtonTextPadding),
-            child: Text
+            baseline: Config.updateButtonBaseline,
+            baselineType: TextBaseline.alphabetic,
+            child: ElevatedButton
             (
-              "Update",
-              textAlign: TextAlign.center,
-            )
+              style: ElevatedButton.styleFrom
+              (
+                minimumSize: Size(MediaQuery.of(context).size.width, Config.updateButtonHeight),
+                backgroundColor: Config.updateButtonColor,
+                foregroundColor: Config.updateButtonTextColor,
+                shape: const BeveledRectangleBorder(),
+              ),
+              onPressed: () =>_updateNav(context, state.user),
+              child: const Padding
+              (
+                padding: EdgeInsets.all(Config.updateButtonTextPadding),
+                child: Text
+                (
+                  "Update",
+                  textAlign: TextAlign.center,
+                )
+              ),
+            ),
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 
-  void _updateNav(BuildContext context)
+  void _updateNav(BuildContext context, User user)
   {
-    return Navigator.of(context).pop();
+    switch (widget.title) 
+    {
+      case "Name":
+        context.read<ProfileBloc>().add(UpdateName(_controller.text, _controller2.text));
+        break;
+
+      case "Phone":
+        context.read<ProfileBloc>().add(UpdatePhone(_controller.text));
+        break;
+
+      case "Email":
+        context.read<ProfileBloc>().add(UpdateEmail(_controller.text));
+        break;
+
+      case "Tell us about yourself":
+        context.read<ProfileBloc>().add(UpdateBio(_controller.text));
+        break;
+
+      default: throw Exception("ProfileEditScreen's _updateNav title defaulted");
+    }
+
+    Navigator.of(context).pop();
   }
 
   void disposed()
   {
     _controller.dispose();
-    // _phoneController.dispose();
+    _controller2.dispose();
   }
 }

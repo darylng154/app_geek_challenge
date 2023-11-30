@@ -36,6 +36,7 @@ class Config
 
   // -------------------------------------------------------------------------
   // Profile Edit Screen Settings
+  static const double profileEditTextFieldPadding = 5;
   static const double profileEditPadding = 40;
   static const double profileEditPromptFontSize = 25;
   static const Color profileEditPromptFontColor = Colors.black;

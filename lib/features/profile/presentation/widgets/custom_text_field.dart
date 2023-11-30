@@ -1,5 +1,6 @@
 import 'package:coding_challenge/features/profile/config.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class CustomTextField extends StatefulWidget
 {
@@ -25,6 +26,14 @@ class CustomTextField extends StatefulWidget
 
 class CustomTextFieldState extends State<CustomTextField>
 {
+  @override
+  void initState() 
+  {
+    super.initState();
+
+    // BlocListener(listener: (context));
+  }
+
   @override
   Widget build(BuildContext context)
   {
