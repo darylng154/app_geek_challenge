@@ -30,8 +30,6 @@ class CustomTextFieldState extends State<CustomTextField>
   void initState() 
   {
     super.initState();
-
-    // BlocListener(listener: (context));
   }
 
   @override

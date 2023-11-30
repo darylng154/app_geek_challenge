@@ -1,5 +1,4 @@
 import 'package:coding_challenge/features/profile/presentation/bloc/profile_bloc.dart';
-import 'package:coding_challenge/features/profile/presentation/screens/profile_edit_screen.dart';
 import 'package:coding_challenge/features/profile/presentation/screens/profile_screen.dart';
 import 'package:coding_challenge/features/profile/config.dart';
 import 'package:flutter/material.dart';
@@ -33,12 +32,6 @@ class MyApp extends StatelessWidget {
           email: "n/a",
           bio: "blank"
         ),
-        // home: ProfileEditScreen
-        // (
-        //   prompt: "What's your phone number?",
-        //   label: "Write a little bit about yourself. Do you like chatting? Are you a smoker? Do you bring pets with you? Etc."
-        //   // label: "Your phone number",
-        // )
       ),
     );
   }

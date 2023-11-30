@@ -25,51 +25,6 @@ class ProfileScreen extends StatelessWidget
     }
   ): super(key: key);
 
-  // @override
-  // Widget build(BuildContext context)
-  // {
-  //   return Scaffold
-  //   (
-  //     appBar: AppBar(),
-  //     body: SafeArea
-  //     (
-  //       child: ListView
-  //       (
-  //         padding: EdgeInsets.symmetric(horizontal: MediaQuery.of(context).size.width * Config.listViewPaddingPerc),
-  //         children: <Widget>
-  //         [
-  //           // Profile Name Widget
-  //           _profileName(),
-
-  //           // Profile Name Bottom Padding box
-  //           const SizedBox
-  //           (
-  //             height: Config.profilePadding,
-  //           ),
-
-  //           // Profile Pic Widget
-  //           _profilePic(),
-
-  //           // Profile Pic Bottom Padding box
-  //           const SizedBox
-  //           (
-  //             height: Config.profilePadding,
-  //           ),
-
-  //           // Profile Column Tiles Widget
-  //           _profileColTiles(),
-
-  //           // Profile Screen Bottom Padding box
-  //           const SizedBox
-  //           (
-  //             height: Config.profilePadding,
-  //           ),
-  //         ]
-  //       ),
-  //     ),
-  //   );
-  // }
-
   @override
   Widget build(BuildContext context)
   {
