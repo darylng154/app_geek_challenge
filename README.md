@@ -13,3 +13,4 @@ After cloning the repository:
 - `extended_masked_text`: formatting String phone number to include parentheses and dashes.
 - `flutter_bloc`: state management library to connect the Profile data model to the Frontend Widgets. 
 - `equatable`: helps with object comparison (==) by comparing values rather than references.
+- `bloc_test`: testing library for test driven development with BLoC
